@@ -1,5 +1,6 @@
 // Chakra imports
 import {
+    Box,
     Button,
     Flex,
     Grid, Heading,
@@ -34,36 +35,77 @@ import axios from "axios";
 export default function Dashboard() {
     const iconBoxInside = useColorModeValue("white", "white");
 
-    const [spinner, setSpiner] = useState(true)
-    const [stock, setStock] = useState([])
-    const baseUrl = 'http://127.0.0.1:7000/analytics/brazil'
+    const [stockBR, setStockBR] = useState([])
+    const [stockUS, setStockUS] = useState([])
+    const [countBR, setCountBR] = useState(0)
 
-    const stocks = async () => {
-        setSpiner(false)
+
+    const stocksBR = async () => {
+        const baseUrl = 'http://127.0.0.1:7000/analytics/brazil'
         try {
             const response = await axios.get(baseUrl)
-            setStock(response.data.list_stocks_analytics.data)
-            setSpiner(true)
+            setStockBR(response.data.list_stocks_analytics.data)
+            setCountBR((response.data.list_stocks_analytics.data).length)
         } catch (err) {
-            setSpiner(true)
+            console.log(err)
+        }
+    };
+
+    const stocksUS = async () => {
+        const baseUrl = 'http://127.0.0.1:7000/analytics/america'
+        try {
+            const response = await axios.get(baseUrl)
+            setStockUS(response.data.list_stocks_analytics.data)
+        } catch (err) {
+            console.log(err)
         }
     };
 
     useEffect(() => {
-        stocks()
+        stocksBR()
+        stocksUS()
     }, [])
 
 
     return (
         <Flex flexDirection='column' pt={{base: "120px", md: "75px"}}>
-            <SimpleGrid columns={{sm: 1, md: 2, xl: 4}} spacing='24px'>
-                <Stack spacing={6}>
-                    <Heading as="h2" size="xl">Brazil Stocks</Heading>
-                </Stack>
+            <Heading>Analysis stocks markets</Heading>
+            <SimpleGrid
+                columns={{sm: 1, md: 2, xl: 4}}
+                spacing='24px'
+                border='1px solid #FFFFFF'
+                padding='20px'
+                borderRadius='5px'
+            >
+                Brazil: {countBR}
             </SimpleGrid>
+            <Heading>Analysis of Brazilian stocks with maximum</Heading>
+            <SimpleGrid
+                columns={{sm: 1, md: 2, xl: 4}}
+                spacing='24px'
+                border='1px solid #FFFFFF'
+                padding='20px'
+                borderRadius='5px'
+            >
+                {
+                    stockBR.map((value, index) => {
+                        console.log(value, index)
+                        return (
+                            <MiniStatistics
+                                title={value.d[1]}
+                                amount={value.d[2]}
+                                percentage={55}
+                                icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside}/>}
+                            />
+                        )
+                    })
+                }
+
+            </SimpleGrid>
+            <Heading>Analysis of American stocks with maximum</Heading>
             <SimpleGrid columns={{sm: 1, md: 2, xl: 4}} spacing='24px'>
                 {
-                    stock.map((value, index) => {
+                    stockUS.map((value, index) => {
                         console.log(value, index)
                         return (
                             <MiniStatistics
