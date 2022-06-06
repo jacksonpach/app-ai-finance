@@ -2,9 +2,9 @@
 import {
     Button,
     Flex,
-    Grid,
+    Grid, Heading,
     Image,
-    SimpleGrid,
+    SimpleGrid, Stack,
     useColorModeValue,
 } from "@chakra-ui/react";
 // assets
@@ -49,20 +49,25 @@ export default function Dashboard() {
         }
     };
 
+    useEffect(() => {
+        stocks()
+    }, [])
+
 
     return (
         <Flex flexDirection='column' pt={{base: "120px", md: "75px"}}>
-            <Button colorScheme="blue" onClick={() => stocks()}>Button</Button>
-
+            <SimpleGrid columns={{sm: 1, md: 2, xl: 4}} spacing='24px'>
+                <Stack spacing={6}>
+                    <Heading as="h2" size="xl">Brazil Stocks</Heading>
+                </Stack>
+            </SimpleGrid>
             <SimpleGrid columns={{sm: 1, md: 2, xl: 4}} spacing='24px'>
                 {
                     stock.map((value, index) => {
                         console.log(value, index)
-                        const split = value.s.split(':');
-                        const first = split[1];
                         return (
                             <MiniStatistics
-                                title={first}
+                                title={value.d[1]}
                                 amount={value.d[2]}
                                 percentage={55}
                                 icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside}/>}
