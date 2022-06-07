@@ -18,7 +18,7 @@ const MiniStatistics = ({title, amount, percentage, icon}) => {
     const textColor = useColorModeValue("gray.700", "white");
 
     return (
-        <Card minH='83px'>
+        <Card minH='83px' >
             <CardBody>
                 <Flex flexDirection='row' align='center' justify='center' w='100%'>
                     <Stat me='auto'>

@@ -68,24 +68,41 @@ export default function Dashboard() {
 
 
     return (
-        <Flex flexDirection='column' pt={{base: "120px", md: "75px"}}>
-            <Heading>Analysis stocks markets</Heading>
+        <Flex flexDirection='column' pt={{base: "120px", md: "75px"}} gap={'10px'}>
+            <Heading as="h3" size="lg">Analysis stocks markets</Heading>
             <SimpleGrid
                 columns={{sm: 1, md: 2, xl: 4}}
                 spacing='24px'
-                border='1px solid #FFFFFF'
-                padding='20px'
-                borderRadius='5px'
             >
-                Brazil: {countBR}
+                <MiniStatistics
+                    title={'Brazil stocks max'}
+                    amount={countBR}
+                    percentage={55}
+                    icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside}/>}
+                />
+                <MiniStatistics
+                    title={'Brazil stocks min'}
+                    amount={countBR}
+                    percentage={55}
+                    icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside}/>}
+                />
+                <MiniStatistics
+                    title={'USA stocks max'}
+                    amount={countBR}
+                    percentage={55}
+                    icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside}/>}
+                />
+                <MiniStatistics
+                    title={'USA stocks max'}
+                    amount={countBR}
+                    percentage={55}
+                    icon={<WalletIcon h={"24px"} w={"24px"} color={iconBoxInside}/>}
+                />
             </SimpleGrid>
-            <Heading>Analysis of Brazilian stocks with maximum</Heading>
+            <Heading as="h3" size="lg">Analysis of Brazilian stocks with maximum</Heading>
             <SimpleGrid
                 columns={{sm: 1, md: 2, xl: 4}}
                 spacing='24px'
-                border='1px solid #FFFFFF'
-                padding='20px'
-                borderRadius='5px'
             >
                 {
                     stockBR.map((value, index) => {
@@ -102,7 +119,7 @@ export default function Dashboard() {
                 }
 
             </SimpleGrid>
-            <Heading>Analysis of American stocks with maximum</Heading>
+            <Heading as="h3" size="lg">Analysis of American stocks with maximum</Heading>
             <SimpleGrid columns={{sm: 1, md: 2, xl: 4}} spacing='24px'>
                 {
                     stockUS.map((value, index) => {
