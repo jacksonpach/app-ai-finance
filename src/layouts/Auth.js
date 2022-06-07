@@ -89,7 +89,7 @@ export default function Pages(props) {
         <Portal containerRef={navRef}>
           <AuthNavbar
             secondary={getActiveNavbar(routes)}
-            logoText="PURITY UI DASHBOARD"
+            logoText="AI Logan Finance"
           />
         </Portal>
         <Box w="100%">
